@@ -1,0 +1,8 @@
+README
+Program takes in a PBM image, removes its black edges and outputs a PBM image.
+
+To run execute:
+make
+./unblackedges hyphen.pbm > hyphen_unblack.pbm
+
+The unblacked PBM image is stored in hyphen_unblack.pbm.
