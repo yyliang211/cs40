@@ -3,6 +3,10 @@ written by:
     Yuma Takahashi
     Yingyang Liang
 
+Example of restoring an iamge:
+make
+./restoration ./alum-corrupt.pgm > alum.pgm
+
 We received much help from the comp40 TAs during office hours. First week we 
 discussed with the TAs about the design and the second week they assisted us 
 with the debugging process. Namely, when we received help from Alex, Tina, and
@@ -11,13 +15,14 @@ Ann Marie during office hours.
 Readaline functionally reads in one line of the plain pgm and restoration 
 recovers the original plain pgm by returning the digit bytes in the raster. 
 After getting the raster in decimal we print it to stdout as a char to convert
-to binary with all the header information. However, there are cases where the 
-image is not correctly outputed. For example, the images that have issues are 
-sail.pgm, turing.pgm, and professor.pgm. We think that this is due to the 
-condition statement that we set in order to separate a line of the row into the
-digit bytes and the non digit bytes. There are probably terminating characters
-infused. Additionally, we did not free the memory in the heap and thus have
-major memory leakages.
+to binary with all the header information. 
+
+Future improvements:
+Rhe images that have issues are sail.pgm, turing.pgm, and professor.pgm. 
+We think that this is due to the condition statement that we set in order to 
+separate a line of the row into the digit bytes and the non digit bytes. 
+There are probably terminating charactersinfused. Additionally, we have 
+memory leakages due to not freeing the data structures.
 
 Validate is used to check if the P5 format is good via pnmrdr interface.
 
