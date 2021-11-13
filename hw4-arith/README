@@ -24,25 +24,21 @@ Acknowledgements:
 - Help from TAs during office hours
 - Lecture slides
 
-Files included:
-- 40image.c
-- 40image.h
-- a2plain.c
-- uarray2.c
-- bitpack.c
-- codeword.c
-- codeword.h
-- compress40.c
-- rgb_cvc.c
-- rgb_cvc.h
-- cvc_dct.c
-- cvc_dct.h
-- dct_quant.c
-- dct_quant.h
-- codeword.c
-- codeword.h
-- print_read.c
-- print_read.h
+Client Module:
+- 40image
+
+Implementation Modules:
+- compress40: compresses/decompresses PPM image
+- Bitpack: bitpacking functions
+- rgb_cvc: converting to/from rgb values and component video color-space 
+- cvc_dct: converting to/from component video color-space and discrete cosine coefficients
+- dct_quant: quantizing/unquantizing discerete cosine coefficients and Pb, Pr values
+- codeword: packing/unpacking 32-bit codewords
+- print_read: printing codewords to stdout and reading codewords from input
+
+Other Modules:
+- helper: helper functions
+- ppmdiff: program checking difference between two PPM images, used to test information loss
 
 Architecture:
 Program implemented for client use is called 40image.
