@@ -1,5 +1,3 @@
-README
-
 /**************************************************************
  *
  *                     README
@@ -10,12 +8,13 @@ README
  *
  **************************************************************/
 
-To compress:
+Usage:
+Compress:
 ./40image -c <filename>
 File must be a PPM image.
 Outputs 32-bit codewords in Big Endian order.
 
-To decompress:
+Decompress:
 ./40image -d <filename>
 File must contain 32-bit codewords.
 Outputs PPM image.
@@ -28,13 +27,13 @@ Client Module:
 - 40image
 
 Implementation Modules:
-- compress40: compresses/decompresses PPM image
-- Bitpack: bitpacking functions
-- rgb_cvc: converting to/from rgb values and component video color-space 
-- cvc_dct: converting to/from component video color-space and discrete cosine coefficients
-- dct_quant: quantizing/unquantizing discerete cosine coefficients and Pb, Pr values
-- codeword: packing/unpacking 32-bit codewords
-- print_read: printing codewords to stdout and reading codewords from input
+- compress40
+- Bitpack
+- rgb_cvc
+- cvc_dct
+- dct_quant
+- codeword
+- print_read
 
 Other Modules:
 - helper: helper functions
@@ -82,7 +81,7 @@ Not Corectly Implemented:
 N/A
 
 Improvements/Thoughts:
-40image is not as efficient as jpeg.
+40image is not as efficient as jpeg, performance is traded off for modularity.
 40image is not good at handling large images.
 
 Hours spent analyzing:
