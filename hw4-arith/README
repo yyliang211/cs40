@@ -1,5 +1,3 @@
-README
-
 /**************************************************************
  *
  *                     README
@@ -10,12 +8,13 @@ README
  *
  **************************************************************/
 
-To compress:
+Usage:
+Compress:
 ./40image -c <filename>
 File must be a PPM image.
 Outputs 32-bit codewords in Big Endian order.
 
-To decompress:
+Decompress:
 ./40image -d <filename>
 File must contain 32-bit codewords.
 Outputs PPM image.
@@ -24,25 +23,21 @@ Acknowledgements:
 - Help from TAs during office hours
 - Lecture slides
 
-Files included:
-- 40image.c
-- 40image.h
-- a2plain.c
-- uarray2.c
-- bitpack.c
-- codeword.c
-- codeword.h
-- compress40.c
-- rgb_cvc.c
-- rgb_cvc.h
-- cvc_dct.c
-- cvc_dct.h
-- dct_quant.c
-- dct_quant.h
-- codeword.c
-- codeword.h
-- print_read.c
-- print_read.h
+Client Module:
+- 40image
+
+Implementation Modules:
+- compress40
+- Bitpack
+- rgb_cvc
+- cvc_dct
+- dct_quant
+- codeword
+- print_read
+
+Other Modules:
+- helper: helper functions
+- ppmdiff: program checking difference between two PPM images, used to test information loss
 
 Architecture:
 Program implemented for client use is called 40image.
@@ -86,7 +81,7 @@ Not Corectly Implemented:
 N/A
 
 Improvements/Thoughts:
-40image is not as efficient as jpeg.
+40image is not as efficient as jpeg, performance is traded off for modularity.
 40image is not good at handling large images.
 
 Hours spent analyzing:
