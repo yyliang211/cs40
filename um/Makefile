@@ -49,7 +49,7 @@ INCLUDES = $(shell echo *.h)
 
 ############### Rules ###############
 
-all: um mem
+all: um
 
 
 ## Compile step (.c files -> .o files)

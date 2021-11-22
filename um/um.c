@@ -7,10 +7,11 @@
 #include "seq.h"
 #include "instructions.h"
 #include "assert.h"
+#include "uarray.h"
 
 FILE *openFile(const char *filename, const char *mode);
 void print_registers(uint32_t *r);
-uint32_t *load_segment_zero(FILE *fp, int *size);
+UArray_T load_segment_zero(FILE *fp);
 uint32_t getNextWord(FILE *fp);
 void execute_instruction(Memory_T memory, uint32_t *registers, 
                         uint32_t *prog_count, int *size, FILE *fp);
@@ -29,7 +30,9 @@ int main(int argc, char *argv[])
     FILE *fp = openFile(argv[1], "r");
     int size = 0;
 
-    Memory_T memory = Memory_new(load_segment_zero(fp, &size));
+    UArray_T seg_zero = load_segment_zero(fp);
+
+    Memory_T memory = Memory_new(seg_zero);
 
     uint32_t prog_count = 0;
     /* this loop should run until halt calls exit, or if program counter goes
@@ -102,24 +105,27 @@ void print_registers(uint32_t *r)
     printf("\n");
 }
 
-uint32_t *load_segment_zero(FILE *fp, int *size)
+UArray_T load_segment_zero(FILE *fp)
 {
-    int cap = 1;
-    uint32_t *seg_zero = malloc(cap * 4);
-    *size = 0;
-    while(!feof(fp)){
+    UArray_T seg_zero = UArray_new(1, sizeof(uint32_t));
+    int size = 0;
+
+    while (!feof(fp)){
         uint32_t word = getNextWord(fp);
-        if(feof(fp)) {
+
+        if (feof(fp)) {
            return seg_zero;
         }
-        *(seg_zero + *size) = word;
-        (*size)++;
-        if (*size == cap) {
-           seg_zero = realloc(seg_zero, cap * 2 * 4);
-           cap *= 2;
+
+        uint32_t *curr = UArray_at(seg_zero, size);
+        *curr = word;
+        size++;
+        
+        if (size == UArray_length(seg_zero)) {
+           UArray_resize(seg_zero, UArray_length(seg_zero) * 2);
         }
     }
-    seg_zero = realloc(seg_zero, *size);
+    UArray_resize(seg_zero, size);
     return seg_zero;
 }
 
@@ -129,12 +135,11 @@ uint32_t getNextWord(FILE *fp)
     int num_bytes = 4;
     uint64_t out = 0;
     for (int i = 0; i < 4; i++) {
-
         unsigned char c = fgetc(fp);
         if (feof(fp)) {
             return 0;
         }
-        out = Bitpack_newu(out, bpb, num_bytes*bpb-((i+1)*bpb), c);
+        out = Bitpack_newu(out, bpb, num_bytes * bpb - ((i + 1) * bpb), c);
     }
     return (uint32_t)out;
 }
